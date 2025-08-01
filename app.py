@@ -4,7 +4,7 @@ import pickle
 
 # Load models and data
 try:
-    with open("collab_model.pkl", "rb") as f:
+    with open("keras_model.pkl", "rb") as f:
         collab_model = pickle.load(f)
     
     with open("product_name_mapping.pkl", "rb") as f:
