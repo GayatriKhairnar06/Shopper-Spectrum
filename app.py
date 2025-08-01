@@ -5,7 +5,7 @@ import pickle
 # Load models and data
 try:
     with open("kmeans_model.pkl", "rb") as f:
-        collab_model = pickle.load(f)
+        kmeans_model = pickle.load(f)
     
     with open("product_name_mapping.pkl", "rb") as f:
         product_mapping = pickle.load(f)
@@ -31,7 +31,7 @@ with tabs[0]:
     if st.button("Get Recommendations"):
         if product_input in product_mapping:
             product_index = product_mapping[product_input]
-            similarity_scores = list(enumerate(collab_model[product_index]))
+            similarity_scores = list(enumerate(kmeans_model[product_index]))
             sorted_scores = sorted(similarity_scores, key=lambda x: x[1], reverse=True)[1:6]
             recommended_products = [list(product_mapping.keys())[i] for i, _ in sorted_scores]
 
