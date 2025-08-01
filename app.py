@@ -1,14 +1,16 @@
 import streamlit as st
 import pandas as pd
 import pickle
-
+import numpy as np
 # Load similarity matrix
 with open("product_similarity.pkl", "rb") as f:
     product_similarity = pickle.load(f)
-
+product_to_index = {name: idx for idx, name in enumerate(product_list)}
 # Load pivot table (to validate product names)
 with open("pivot_table.pkl", "rb") as f:
     pivot_table = pickle.load(f)
+with open("product_list.pkl", "rb") as f:
+    product_list = pickle.load(f)
 
 # List of all product names
 product_names = pivot_table.columns.tolist()
