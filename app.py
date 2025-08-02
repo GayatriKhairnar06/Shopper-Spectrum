@@ -68,9 +68,9 @@ with tab2:
     st.title("👥 Customer Segmentation using RFM Clustering")
 
     try:
-        df = pd.read_csv("rfm_with_cluster.csv")
+        df = pd.read_csv("rfm_with_clusters.csv")
     except FileNotFoundError:
-        st.error("❌ rfm_with_cluster.csv not found.")
+        st.error("❌ rfm_with_clusters.csv not found.")
         st.stop()
 
     st.subheader("📋 RFM Clustered Customer Data")
@@ -83,3 +83,4 @@ with tab2:
     st.subheader("📈 Cluster Profiles (Average RFM Scores)")
     cluster_summary = df.groupby('Cluster')[['Recency', 'Frequency', 'Monetary']].mean().round(1)
     st.dataframe(cluster_summary)
+
