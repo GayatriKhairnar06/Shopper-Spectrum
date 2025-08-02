@@ -2,6 +2,12 @@ import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
+st.set_page_config(
+    page_title="Shopper Spectrum: Product Recommendation",
+    page_icon="🛍️",  # Optional: Emoji for tab icon
+    layout="centered"
+)
+
 
 # ---- Load files ----
 try:
@@ -48,3 +54,4 @@ if st.button("Get Recommendations"):
             st.write(product_list[i])
     else:
         st.error("❌ Product not found in the dataset.")
+
