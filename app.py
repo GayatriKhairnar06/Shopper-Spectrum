@@ -4,7 +4,7 @@ import pickle
 import numpy as np
 st.set_page_config(
     page_title="Shopper Spectrum: Product Recommendation",
-    page_icon="🛍️",  # Optional: Emoji for tab icon
+    page_icon="🛍️", 
     layout="centered"
 )
 
@@ -54,4 +54,5 @@ if st.button("Get Recommendations"):
             st.write(product_list[i])
     else:
         st.error("❌ Product not found in the dataset.")
+
 
