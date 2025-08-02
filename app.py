@@ -68,19 +68,22 @@ with tab2:
     st.title("👥 Customer Segmentation using RFM Clustering")
 
     try:
-        df = pd.read_csv("rfm_with_clusters.csv")
+        df = pd.read_csv("rfm_with_cluster.csv")
     except FileNotFoundError:
-        st.error("❌ rfm_with_clusters.csv not found.")
+        st.error("❌ rfm_with_cluster.csv not found.")
         st.stop()
 
     st.subheader("📋 RFM Clustered Customer Data")
-    st.dataframe(df.head())
+    st.dataframe(df[['CustomerID', 'Recency', 'Frequency', 'Monetary', 'Segment', 'Cluster']].head(), use_container_width=True)
 
     st.subheader("📊 Customers per Cluster")
     cluster_counts = df['Cluster'].value_counts().sort_index()
+    cluster_counts.index = cluster_counts.index.astype(str)  # Ensure X-axis labels are visible
     st.bar_chart(cluster_counts)
 
     st.subheader("📈 Cluster Profiles (Average RFM Scores)")
-    cluster_summary = df.groupby('Cluster')[['Recency', 'Frequency', 'Monetary']].mean().round(1)
-    st.dataframe(cluster_summary)
+    cluster_summary = df.groupby('Cluster')[['Recency', 'Frequency', 'Monetary']].mean().round(1).reset_index()
+    st.table(cluster_summary)
+
+
 
