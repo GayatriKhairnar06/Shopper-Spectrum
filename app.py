@@ -55,9 +55,9 @@ with tab2:
     st.title("📊 Customer Segmentation using RFM Clustering")
 
     try:
-        df = pd.read_csv("rfm_with_cluster.csv")
+        df = pd.read_csv("rfm_with_clusters.csv")
     except FileNotFoundError:
-        st.error("❌ rfm_with_cluster.csv not found.")
+        st.error("❌ rfm_with_clusters.csv not found.")
         st.stop()
 
     st.subheader("📋 RFM Clustered Customer Data")
@@ -79,10 +79,10 @@ with tab3:
 
     # Load model
     try:
-        with open("rfm_cluster_models.pkl", "rb") as f:
+        with open("rfm_with_.pkl", "rb") as f:
             cluster_model = pickle.load(f)
     except FileNotFoundError:
-        st.error("❌ rfm_cluster_models.pkl not found.")
+        st.error("❌ kmeans_models.pkl not found.")
         st.stop()
 
     # Input fields
@@ -104,3 +104,4 @@ with tab3:
 
         st.success(f"🧠 Predicted Cluster: {cluster}")
         st.info(f"This customer belongs to: **{segment_labels.get(cluster, 'Unknown')}**")
+
