@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
-
+import joblib
 # Set up page
 st.set_page_config(
     page_title="Shopper Spectrum",
@@ -75,14 +75,12 @@ with tab3:
     st.title("🎯 Predict Customer Segment")
 
     # Load model and scaler
-    try:
-        with open("rfm_cluster_model.pkl", "rb") as f:
-            model = pickle.load(f)
-        with open("scaler.pkl", "rb") as f:
-            scaler = pickle.load(f)
+    try:   
+        model = joblib.load("rfm_cluster_model.pkl")
+        scaler = joblib.load("scaler.pkl")
     except FileNotFoundError:
-        st.error("❌ Required model or scaler file not found.")
-        st.stop()
+    st.error("❌ Required model or scaler file not found.")
+    st.stop()
 
     # Input fields
     recency = st.number_input("Recency (days since last purchase)", min_value=0, step=1, value=90)
@@ -104,3 +102,4 @@ with tab3:
 
         st.success(f"🧠 Predicted Cluster: {cluster}")
         st.info(f"This customer belongs to: **{segment_labels.get(cluster, 'Unknown')}**")
+
