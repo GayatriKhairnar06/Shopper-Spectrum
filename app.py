@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 # Tabs
-tab1, tab2, tab3 = st.tabs(["📦 Product Recommendation", "📊 Customer Segmentation", "🎯 Predict Customer Segment"])
+tab1, tab2 = st.tabs(["📦 Product Recommendation", "🎯 Predict Customer Segment"])
 
 # ============================ TAB 1: Product Recommendation ============================
 with tab1:
@@ -50,28 +50,7 @@ with tab1:
 
 # ============================ TAB 2: Customer Segmentation (View Clusters) ============================
 with tab2:
-    st.title("📊 Customer Segmentation using RFM Clustering")
 
-    try:
-        df = pd.read_csv("rfm_with_clusters.csv")
-    except FileNotFoundError:
-        st.error("❌ rfm_with_clusters.csv not found.")
-        st.stop()
-
-    st.subheader("📋 RFM Clustered Customer Data")
-    st.dataframe(df[['CustomerID', 'Recency', 'Frequency', 'Monetary', 'Segment', 'Cluster']].head(), use_container_width=True)
-
-    st.subheader("📊 Customers per Cluster")
-    cluster_counts = df['Cluster'].value_counts().sort_index()
-    cluster_counts.index = cluster_counts.index.astype(str)
-    st.bar_chart(cluster_counts)
-
-    st.subheader("📈 Cluster Profiles (Average RFM Scores)")
-    cluster_summary = df.groupby('Cluster')[['Recency', 'Frequency', 'Monetary']].mean().round(1).reset_index()
-    st.table(cluster_summary)
-
-# ============================ TAB 3: Predict Customer Segment ============================
-with tab3:
     st.title("🎯 Predict Customer Segment")
 
     # Load model and scaler
@@ -102,5 +81,6 @@ with tab3:
 
         st.success(f"🧠 Predicted Cluster: {cluster}")
         st.info(f"This customer belongs to: **{segment_labels.get(cluster, 'Unknown')}**")
+
 
 
