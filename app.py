@@ -1,4 +1,4 @@
-simport streamlit as st
+import streamlit as st
 import pandas as pd
 import pickle
 import numpy as np
@@ -105,6 +105,7 @@ with tab3:
 
         st.success(f"🧠 Predicted Cluster: {cluster}")
         st.info(f"This customer belongs to: **{segment_labels.get(cluster, 'Unknown')}**")
+
 
 
 
