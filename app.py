@@ -93,7 +93,7 @@ with tab3:
 
     if st.button("Predict Segment"):
         input_data = np.array([[recency, frequency, monetary]])
-        cluster = model.predict(input_data)[0]
+        cluster = kmeans_model.predict(input_data)[0]
 
         # Define custom labels
         segment_labels = {
@@ -105,6 +105,7 @@ with tab3:
 
         st.success(f"🧠 Predicted Cluster: {cluster}")
         st.info(f"This customer belongs to: **{segment_labels.get(cluster, 'Unknown')}**")
+
 
 
 
