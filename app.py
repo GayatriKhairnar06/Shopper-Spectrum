@@ -79,11 +79,11 @@ with tab3:
 
     # Load model
     try:
-        with open("rfm_cluster_model.pkl", "rb") as f:
+        with open("kmeans_model.pkl", "rb") as f:
             model = pickle.load(f)
 
     except FileNotFoundError:
-        st.error("❌ rfm_cluster_model.pkl not found.")
+        st.error("❌ kmeans_model.pkl not found.")
         st.stop()
 
     # Input fields
@@ -105,5 +105,6 @@ with tab3:
 
         st.success(f"🧠 Predicted Cluster: {cluster}")
         st.info(f"This customer belongs to: **{segment_labels.get(cluster, 'Unknown')}**")
+
 
 
