@@ -79,8 +79,8 @@ with tab3:
         model = joblib.load("rfm_cluster_model.pkl")
         scaler = joblib.load("scaler.pkl")
     except FileNotFoundError:
-    st.error("❌ Required model or scaler file not found.")
-    st.stop()
+        st.error("❌ Required model or scaler file not found.")
+        st.stop()
 
     # Input fields
     recency = st.number_input("Recency (days since last purchase)", min_value=0, step=1, value=90)
@@ -102,4 +102,5 @@ with tab3:
 
         st.success(f"🧠 Predicted Cluster: {cluster}")
         st.info(f"This customer belongs to: **{segment_labels.get(cluster, 'Unknown')}**")
+
 
