@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 import numpy as np
 
-# Page setup
+# Set up page
 st.set_page_config(
     page_title="Shopper Spectrum",
     page_icon="🛍️",
@@ -14,7 +14,6 @@ st.set_page_config(
 tab1, tab2, tab3 = st.tabs(["📦 Product Recommendation", "📊 Customer Segmentation", "🎯 Predict Customer Segment"])
 
 # ============================ TAB 1: Product Recommendation ============================
-
 with tab1:
     st.title("📦 Product Recommendation Engine")
     st.markdown("Enter a product name and get similar product suggestions based on customer buying behavior.")
@@ -49,8 +48,7 @@ with tab1:
         else:
             st.error("❌ Product not found in dataset.")
 
-# ============================ TAB 2: Customer Segmentation (RFM Clustering View) ============================
-
+# ============================ TAB 2: Customer Segmentation (View Clusters) ============================
 with tab2:
     st.title("📊 Customer Segmentation using RFM Clustering")
 
@@ -73,17 +71,17 @@ with tab2:
     st.table(cluster_summary)
 
 # ============================ TAB 3: Predict Customer Segment ============================
-
 with tab3:
     st.title("🎯 Predict Customer Segment")
 
-    # Load model
+    # Load model and scaler
     try:
-        with open("kmeans_model.pkl", "rb") as f:
-            kmeans_model = pickle.load(f)
-
+        with open("rfm_cluster_model.pkl", "rb") as f:
+            model = pickle.load(f)
+        with open("scaler.pkl", "rb") as f:
+            scaler = pickle.load(f)
     except FileNotFoundError:
-        st.error("❌ kmeans_model.pkl not found.")
+        st.error("❌ Required model or scaler file not found.")
         st.stop()
 
     # Input fields
@@ -93,9 +91,10 @@ with tab3:
 
     if st.button("Predict Segment"):
         input_data = np.array([[recency, frequency, monetary]])
-        cluster = kmeans_model.predict(input_data)[0]
+        scaled_input = scaler.transform(input_data)
+        cluster = model.predict(scaled_input)[0]
 
-        # Define custom labels
+        # Custom segment labels (you can edit as needed)
         segment_labels = {
             0: "Regular Shopper",
             1: "New/Low Value",
@@ -105,10 +104,3 @@ with tab3:
 
         st.success(f"🧠 Predicted Cluster: {cluster}")
         st.info(f"This customer belongs to: **{segment_labels.get(cluster, 'Unknown')}**")
-
-
-
-
-
-
-
